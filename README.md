@@ -1,9 +1,13 @@
 # indexed-string-variation
 
-Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree
+Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree.
 
 
 ## Usage
+
+Generally useful to create distributed brute-force password recovery tools or
+other software that might require distributed generation of all possible
+strings on a given alphabet.
 
 ```javascript
 const isv = require('indexed-string-variation');
