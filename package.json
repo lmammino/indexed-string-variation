@@ -1,13 +1,23 @@
 {
   "name": "indexed-string-variation",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree",
   "main": "src/index.js",
   "scripts": {
     "test": "node_modules/.bin/tape test/"
   },
-  "author": "Luciano Mammino",
+  "author": {
+    "name": "Luciano Mammino",
+    "email": "lucianomammino@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lmammino/indexed-string-variation"
+  },
   "license": "MIT",
+  "engines" : {
+    "node" : ">=4.0.0"
+  },
   "devDependencies": {
     "tape": "^4.6.0"
   }
