@@ -2,6 +2,13 @@
 
 Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree.
 
+## Install
+
+With NPM:
+
+```bash
+npm install --save indexed-string-variation
+```
 
 ## Usage
 
