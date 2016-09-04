@@ -1,0 +1,14 @@
+{
+  "name": "indexed-string-variation",
+  "version": "1.0.0",
+  "description": "Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node_modules/.bin/tape test/"
+  },
+  "author": "Luciano Mammino",
+  "license": "MIT",
+  "devDependencies": {
+    "tape": "^4.6.0"
+  }
+}
