@@ -1,7 +1,7 @@
 'use strict';
 
-const test = require('tape');
-const isv = require('../src/index');
+import {test} from 'tap';
+import isv from './index';
 
 const dataProvider = {
   'numerical': {
