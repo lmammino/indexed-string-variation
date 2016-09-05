@@ -26,7 +26,10 @@ for (const testCase in dataProvider) {
     const alphabet = dataProvider[testCase].alphabet;
     const expected = dataProvider[testCase].expected;
     const isvn = isv(alphabet);
-    const generated = Array.from(Array(expected.length).keys()).map(isvn);
+    const generated = [];
+    for (let i = 0; i < expected.length; i++) {
+      generated.push(isvn(i));
+    }
     t.plan(1);
     t.deepEqual(expected, generated, `From ${alphabet} generates: ${expected.join()}`);
   });
