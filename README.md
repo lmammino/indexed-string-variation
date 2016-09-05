@@ -1,6 +1,12 @@
 # indexed-string-variation
 
+[![npm version](https://badge.fury.io/js/indexed-string-variation.svg)](http://badge.fury.io/js/indexed-string-variation)
+[![Build Status](https://travis-ci.org/lmammino/indexed-string-variation.svg?branch=master)](https://travis-ci.org/lmammino/indexed-string-variation)
+[![codecov.io](https://codecov.io/gh/lmammino/indexed-string-variation/coverage.svg?branch=master)](https://codecov.io/gh/lmammino/indexed-string-variation)
+
+
 Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree.
+
 
 ## Install
 
@@ -9,6 +15,7 @@ With NPM:
 ```bash
 npm install --save indexed-string-variation
 ```
+
 
 ## Usage
 
