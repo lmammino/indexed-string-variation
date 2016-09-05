@@ -61,6 +61,45 @@ Will print:
 ```
 
 
+## How the algorithm works
+
+The way the generation algorithm work is using an n-ary tree where n is the size of the alphabet.
+For example, if we have an alphabet containing only `a`, `b` and `c` and we want to generate all
+the strings with a maximum length of 3 the algorithm will use the following tree:
+
+![Sample ternary tree over abc alphabet](doc/sample_diagram.png)
+
+The tree is to be considered "virtual", because it's never generated in its integrity, so the
+used space in memory is minimal.
+
+In brevity we can describe the algorithm as follows:
+
+*Given an index **i** over an alphabet of length **n** and it's corresponding n-ary tree,
+the string associated to **i** corresponds to the string obtained by 
+concatenating all the characters found from the root node to the node **i**.*
+
+For example, with the alphabet in the image we can generate the following strings:
+
+| i | generated string |
+|---:|---|
+|0||
+|1|a|
+|2|b|
+|3|c|
+|4|aa|
+|5|ab|
+|6|ac|
+|7|ba|
+|8|bb|
+|9|bc|
+|10|ca|
+|11|cb|
+|12|cc|
+
+
+Important note: The alphabet is always normalized (i.e. duplicates are removed)
+  
+
 ## Contributing
 
 Everyone is very welcome to contribute to this project.
