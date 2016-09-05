@@ -1,15 +1,14 @@
 'use strict';
 
 export default function isv(alphabet) {
-
   // remove duplicates from alphabets
-  const cleanAlphabet = (alphabet) => {
+  const cleanAlphabet = alphabet => {
     return alphabet
       .split('')
       .filter((item, pos, self) => self.indexOf(item) === pos)
       .join('')
     ;
-  }
+  };
 
   alphabet = cleanAlphabet(alphabet) || 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
 
@@ -25,13 +24,16 @@ export default function isv(alphabet) {
     }
 
     return level;
-  }
+  };
 
   // string generation function
-  return (index) => {
+  return index => {
     const n = alphabet.length;
     let result = '';
-    let l, f, rebasedPos, rebasedIndex;
+    let l;
+    let f;
+    let rebasedPos;
+    let rebasedIndex;
 
     while (index > 0) {
       // 1. calculate level
@@ -53,5 +55,5 @@ export default function isv(alphabet) {
     }
 
     return result;
-  }
+  };
 }

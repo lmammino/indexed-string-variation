@@ -22,15 +22,17 @@ const dataProvider = {
 };
 
 for (const testCase in dataProvider) {
-  test(testCase, (t) => {
-    const alphabet = dataProvider[testCase].alphabet;
-    const expected = dataProvider[testCase].expected;
-    const isvn = isv(alphabet);
-    const generated = [];
-    for (let i = 0; i < expected.length; i++) {
-      generated.push(isvn(i));
-    }
-    t.plan(1);
-    t.deepEqual(expected, generated, `From ${alphabet} generates: ${expected.join()}`);
-  });
+  if (({}).hasOwnProperty.call(dataProvider, testCase)) {
+    test(testCase, t => {
+      const alphabet = dataProvider[testCase].alphabet;
+      const expected = dataProvider[testCase].expected;
+      const isvn = isv(alphabet);
+      const generated = [];
+      for (let i = 0; i < expected.length; i++) {
+        generated.push(isvn(i));
+      }
+      t.plan(1);
+      t.deepEqual(expected, generated, `From ${alphabet} generates: ${expected.join()}`);
+    });
+  }
 }
