@@ -11,7 +11,7 @@
   "scripts": {
     "build": "node_modules/.bin/babel --presets=es2015 src/ -d lib",
     "lint": "./node_modules/.bin/eslint src/",
-    "test": "npm run lint && node_modules/.bin/tap lib/test.js --coverage | node_modules/.bin/tap-spec",
+    "test": "node_modules/.bin/if-node-version '>=6' npm run lint && node_modules/.bin/tap lib/test.js --coverage | node_modules/.bin/tap-spec",
     "posttest": "node_modules/.bin/tap --coverage-report=lcov && node_modules/.bin/codecov --file 'lib/index.js'",
     "prepublish": "npm run build"
   },
@@ -39,6 +39,7 @@
     "eslint": "^3.4.0",
     "eslint-config-xo-space": "^0.14.0",
     "eslint-plugin-babel": "^3.3.0",
+    "if-node-version": "^1.0.0",
     "tap": "^7.0.0",
     "tap-spec": "^4.1.1"
   },
