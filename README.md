@@ -27,7 +27,7 @@ strings on a given alphabet.
 const isv = require('indexed-string-variation');
 const isvn = isv('abc1');
 
-for (const i=0; i < 23; i++) {
+for (let i=0; i < 23; i++) {
     console.log(i, isvn(i)); // generates the i-th string in the alphabet 'abc1'
 }
 ```
@@ -35,28 +35,29 @@ for (const i=0; i < 23; i++) {
 Will print:
 
 ```bash
-0 
-1 a
-2 b
-3 c
-4 1
-5 aa
-6 ab
-7 ac
-8 a1
-9 ba
-10 bb
-11 bc
-12 b1
-13 ca
-14 cb
-15 cc
-16 c1
-17 1a
-18 1b
-19 1c
-20 11
-21 aaa
+0 ''
+1 'a'
+2 'b'
+3 'c'
+4 '1'
+5 'aa'
+6 'ab'
+7 'ac'
+8 'a1'
+9 'ba'
+10 'bb'
+11 'bc'
+12 'b1'
+13 'ca'
+14 'cb'
+15 'cc'
+16 'c1'
+17 '1a'
+18 '1b'
+19 '1c'
+20 '11'
+21 'aaa'
+22 'aab'
 ```
 
 
