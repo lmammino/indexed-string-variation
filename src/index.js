@@ -10,6 +10,10 @@ export default function isv(alphabet) {
     ;
   };
 
+  if (alphabet && typeof alphabet !== 'string') {
+    throw new TypeError('alphabet must be a string');
+  }
+
   alphabet = cleanAlphabet(alphabet) || 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
 
   // calculates the level of a given index in the current virtual tree
@@ -28,6 +32,10 @@ export default function isv(alphabet) {
 
   // string generation function
   return index => {
+    if (parseInt(Number(index), 10) !== index || index < 0) {
+      throw new TypeError('index must be a non-negative integer');
+    }
+
     const n = alphabet.length;
     let result = '';
     let l;
