@@ -24,11 +24,11 @@ other software that might require distributed generation of all possible
 strings on a given alphabet.
 
 ```javascript
-const isv = require('indexed-string-variation');
-const isvn = isv('abc1');
+const generator = require('indexed-string-variation').generator;
+const variations = generator('abc1');
 
 for (let i=0; i < 23; i++) {
-    console.log(i, isvn(i)); // generates the i-th string in the alphabet 'abc1'
+    console.log(i, variations(i)); // generates the i-th string in the alphabet 'abc1'
 }
 ```
 
@@ -58,6 +58,28 @@ Will print:
 20 '11'
 21 'aaa'
 22 'aab'
+```
+
+
+## API
+
+The module `indexed-string-variation` exposes the following components:
+ 
+ * `generator` (also aliased as `default` for ES2015 modules): the 
+  main generator function
+ * `defaultAlphabet`: a constant string that contains the sequence of 
+  characters in the defaultAlphabet
+
+As you can see in the [usage example](#usage), the `generator` function takes as input the 
+alphabet string (which is optional and it will default to `defaultAlphabet` if 
+not provided) and returns a new function called `variations` which can be
+used to retrieve the indexed variation on the given alphabet. `variations` takes
+a non-negative integer as input which represents the index of the variations
+that we want to generate:
+
+```javascript
+const variations = generator('XYZ');
+console.log(variations(7123456789)); // "XYYZYZZZYYYZYZYXYYYYX"
 ```
 
 
@@ -98,7 +120,13 @@ For example, with the alphabet in the image we can generate the following string
 
 
 Important note: The alphabet is always normalized (i.e. duplicates are removed)
-  
+
+
+## Known issues
+
+ * [JavaScript bigInt approximations](https://github.com/lmammino/indexed-string-variation/issues/8): Integers 
+with more than 18 digits are approximated (e.g. `123456789012345680000 === 123456789012345678901`) so at some 
+point the generators will start to generate a lot of duplicated strings and it will start to miss some cases.
 
 ## Contributing
 

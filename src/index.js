@@ -1,6 +1,7 @@
 'use strict';
 
-export default function isv(alphabet) {
+export const defaultAlphabet = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
+export function generator(alphabet) {
   // remove duplicates from alphabets
   const cleanAlphabet = alphabet => {
     return alphabet
@@ -14,7 +15,7 @@ export default function isv(alphabet) {
     throw new TypeError('alphabet must be a string');
   }
 
-  alphabet = alphabet ? cleanAlphabet(alphabet) : 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
+  alphabet = alphabet ? cleanAlphabet(alphabet) : defaultAlphabet;
 
   // calculates the level of a given index in the current virtual tree
   const getLevel = (base, index) => {
@@ -31,7 +32,7 @@ export default function isv(alphabet) {
   };
 
   // string generation function
-  return index => {
+  const generate = index => {
     if (parseInt(Number(index), 10) !== index || index < 0) {
       throw new TypeError('index must be a non-negative integer');
     }
@@ -64,4 +65,10 @@ export default function isv(alphabet) {
 
     return result;
   };
+
+  generate.alphabet = alphabet;
+
+  return generate;
 }
+
+export default generator;

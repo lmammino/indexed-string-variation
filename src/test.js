@@ -1,7 +1,7 @@
 'use strict';
 
 import {test} from 'tap';
-import isv from './index';
+import {generator, defaultAlphabet} from './index';
 
 const dataProvider = {
   'it should produce variations with digits in alphabet': {
@@ -26,7 +26,7 @@ for (const testCase in dataProvider) {
     test(testCase, t => {
       const alphabet = dataProvider[testCase].alphabet;
       const expected = dataProvider[testCase].expected;
-      const isvn = isv(alphabet);
+      const isvn = generator(alphabet);
       const generated = [];
       for (let i = 0; i < expected.length; i++) {
         generated.push(isvn(i));
@@ -38,17 +38,26 @@ for (const testCase in dataProvider) {
 }
 
 test('it must use the default alphabet if no alphabet is given', t => {
-  t.plan(1);
-  t.equal('d', isv()(4));
+  t.plan(2);
+  const g = generator();
+  t.equal('d', g(4));
+  t.equal(g.alphabet, defaultAlphabet);
 });
 
 test('it must not accept non-string values as alphabet', t => {
-  t.plan(1);
-  t.throws(() => isv([]), TypeError, 'alphabet must be a string');
+  t.plan(3);
+  const expectedException = TypeError;
+  const expectedMessage = 'alphabet must be a string';
+  t.throws(() => generator(-1), expectedException, expectedMessage);
+  t.throws(() => generator([]), expectedException, expectedMessage);
+  t.throws(() => generator({}), expectedException, expectedMessage);
 });
 
 test('it must not accept indexes that are not non-negative integers', t => {
-  t.plan(2);
-  t.throws(() => isv('a')(-1), TypeError, 'index must be a non-negative integer');
-  t.throws(() => isv('b')({}), TypeError, 'index must be a non-negative integer');
+  t.plan(3);
+  const expectedException = TypeError;
+  const expectedMessage = 'index must be a non-negative integer';
+  t.throws(() => generator('a')(-1), expectedException, expectedMessage);
+  t.throws(() => generator('a')([]), expectedException, expectedMessage);
+  t.throws(() => generator('b')({}), expectedException, expectedMessage);
 });
