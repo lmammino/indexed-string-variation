@@ -37,6 +37,11 @@ for (const testCase in dataProvider) {
   }
 }
 
+test('it must use the default alphabet if no alphabet is given', t => {
+  t.plan(1);
+  t.equal('d', isv()(4));
+});
+
 test('it must not accept non-string values as alphabet', t => {
   t.plan(1);
   t.throws(() => isv([]), TypeError, 'alphabet must be a string');

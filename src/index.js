@@ -14,7 +14,7 @@ export default function isv(alphabet) {
     throw new TypeError('alphabet must be a string');
   }
 
-  alphabet = cleanAlphabet(alphabet) || 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
+  alphabet = alphabet ? cleanAlphabet(alphabet) : 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
 
   // calculates the level of a given index in the current virtual tree
   const getLevel = (base, index) => {
