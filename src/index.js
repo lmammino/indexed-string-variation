@@ -1,5 +1,9 @@
 'use strict';
 
+import bigInt from 'big-integer';
+import generateInt from './generate/generateInt';
+import generateBigInt from './generate/generateBigInt';
+
 export const defaultAlphabet = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
 export function generator(alphabet) {
   // remove duplicates from alphabets
@@ -17,53 +21,9 @@ export function generator(alphabet) {
 
   alphabet = alphabet ? cleanAlphabet(alphabet) : defaultAlphabet;
 
-  // calculates the level of a given index in the current virtual tree
-  const getLevel = (base, index) => {
-    let level = 0;
-    let current = index;
-    let parent;
-    while (current > 0) {
-      parent = Math.floor((current - 1) / base);
-      ++level;
-      current = parent;
-    }
-
-    return level;
-  };
-
   // string generation function
   const generate = index => {
-    if (parseInt(Number(index), 10) !== index || index < 0) {
-      throw new TypeError('index must be a non-negative integer');
-    }
-
-    const n = alphabet.length;
-    let result = '';
-    let l;
-    let f;
-    let rebasedPos;
-    let rebasedIndex;
-
-    while (index > 0) {
-      // 1. calculate level
-      l = getLevel(n, index);
-
-      // 2. calculate first element in level
-      f = 0;
-      for (let i = 0; i < l; i++) {
-        f += Math.pow(n, i);
-      }
-
-      // 3. rebase current position and calculate current letter
-      rebasedPos = index - f;
-      rebasedIndex = rebasedPos % n;
-      result = alphabet[rebasedIndex] + result;
-
-      // 4. calculate parent number in the tree (next index)
-      index = Math.floor((index - 1) / n);
-    }
-
-    return result;
+    return index instanceof bigInt ? generateBigInt(index, alphabet) : generateInt(index, alphabet);
   };
 
   generate.alphabet = alphabet;

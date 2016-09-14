@@ -122,11 +122,35 @@ For example, with the alphabet in the image we can generate the following string
 Important note: The alphabet is always normalized (i.e. duplicates are removed)
 
 
-## Known issues
+## Use big-integer to avoid JavaScript big integers approximations
 
- * [JavaScript bigInt approximations](https://github.com/lmammino/indexed-string-variation/issues/8): Integers 
-with more than 18 digits are approximated (e.g. `123456789012345680000 === 123456789012345678901`) so at some 
-point the generators will start to generate a lot of duplicated strings and it will start to miss some cases.
+Integers with more than 18 digits are approximated (e.g. `123456789012345680000 === 123456789012345678901`), so at some 
+point the generator will start to generate a lot of duplicated strings and it will start to miss many cases.
+
+To workaround this issue you can use indexes generated with the module [big-integer](https://www.npmjs.com/package/big-integer).
+Internally the indexed-string-variation will take care of performing the correct
+operations using the library.
+
+Let's see an example:
+
+```javascript
+const bigInt = require('big-integer'); // install from https://npmjs.com/package/big-integer
+const generator = require('indexed-string-variation').generator;
+const variations = generator('JKWXYZ');
+
+// generation using regular big numbers (same result)
+console.log(variations(123456789012345678901)); // XJZJYXXXYYJKYZZJKZKYJWJJYW
+console.log(variations(123456789012345680000)); // XJZJYXXXYYJKYZZJKZKYJWJJYW
+
+// generation using big-integer numbers (correct results)
+console.log(variations(bigInt('123456789012345678901'))); // XJZJYXXXYYJKYZZJKZKXZKJZZJ
+console.log(variations(bigInt('123456789012345680000'))); // XJZJYXXXYYJKYZZJKZKXZWJJWK
+```
+
+Anyway, keep in mind that big-integers might have a relevant performance impact, 
+so if you don't plan to use huge integers it's still recommended to use 
+plain JavaScript numbers as indexes.
+
 
 ## Contributing
 

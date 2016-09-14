@@ -1,6 +1,7 @@
 'use strict';
 
 import {test} from 'tap';
+import bigInt from 'big-integer';
 import {generator, defaultAlphabet} from './index';
 
 const dataProvider = {
@@ -27,12 +28,19 @@ for (const testCase in dataProvider) {
       const alphabet = dataProvider[testCase].alphabet;
       const expected = dataProvider[testCase].expected;
       const isvn = generator(alphabet);
-      const generated = [];
+      const generatedInt = [];
+      const generatedBigInt = [];
+
       for (let i = 0; i < expected.length; i++) {
-        generated.push(isvn(i));
+        // verify that the generator using int and the generator using bigInt produce the same result
+        generatedInt.push(isvn(i));
+        generatedBigInt.push(isvn(bigInt(String(i))));
       }
-      t.plan(1);
-      t.deepEqual(expected, generated, `From ${alphabet} generates: ${expected.join()}`);
+
+      t.plan(2);
+      t.deepEqual(expected, generatedInt, `(int) From ${alphabet} generates: ${expected.join()}`);
+      t.deepEqual(expected, generatedBigInt, `(bigInt) From ${alphabet} generates: ${expected.join()}`);
+      t.end();
     });
   }
 }

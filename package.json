@@ -1,18 +1,20 @@
 {
   "name": "indexed-string-variation",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "files": [
     "lib/index.js",
-    "src/index.js"
+    "src/index.js",
+    "lib/generate",
+    "src/generate"
   ],
   "scripts": {
     "build": "node_modules/.bin/babel --presets=es2015 src/ -d lib",
     "lint": "./node_modules/.bin/eslint src/",
     "test": "node_modules/.bin/if-node-version '>=6' npm run lint && node_modules/.bin/tap lib/test.js --coverage | node_modules/.bin/tap-spec",
-    "posttest": "node_modules/.bin/tap --coverage-report=lcov && node_modules/.bin/codecov --file 'lib/index.js'",
+    "posttest": "node_modules/.bin/tap --coverage-report=lcov && node_modules/.bin/codecov",
     "prepublish": "npm run build"
   },
   "author": {
@@ -56,5 +58,8 @@
   ],
   "eslintConfig": {
     "extends": "xo-space/esnext"
+  },
+  "dependencies": {
+    "big-integer": "^1.6.16"
   }
 }
