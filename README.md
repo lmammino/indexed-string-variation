@@ -96,9 +96,9 @@ used space in memory is minimal.
 
 In brevity we can describe the algorithm as follows:
 
-*Given an index **i** over an alphabet of length **n** and it's corresponding n-ary tree,
+> Given an index **i** over an alphabet of length **n** and it's corresponding n-ary tree,
 the string associated to **i** corresponds to the string obtained by 
-concatenating all the characters found from the root node to the node **i**.*
+concatenating all the characters found in the path that goes from the root node to the **i**-th node.
 
 For example, with the alphabet in the image we can generate the following strings:
 
