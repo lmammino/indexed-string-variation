@@ -1,6 +1,6 @@
 {
   "name": "indexed-string-variation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
@@ -31,7 +31,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=0.10"
+    "node": ">=4"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
