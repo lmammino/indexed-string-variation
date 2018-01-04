@@ -4,7 +4,7 @@ import bigInt from 'big-integer';
 import generateInt from './generate/generateInt';
 import generateBigInt from './generate/generateBigInt';
 
-export const defaultAlphabet = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
+export const defaultAlphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 export function generator(alphabet) {
   // remove duplicates from alphabets
   const cleanAlphabet = alphabet => {
