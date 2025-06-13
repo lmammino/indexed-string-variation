@@ -112,4 +112,17 @@ describe('indexed-string-variation', () => {
       expect(generatedStrings).toEqual(expected)
     },
   )
+
+  it('Can be used with the explicit iterator interface', () => {
+    // endless
+    const isvn = indexedStringVariation({ alphabet: 'ab' })
+    expect(isvn.next()).toEqual({ value: '', done: false })
+    expect(isvn.next()).toEqual({ value: 'a', done: false })
+    expect(isvn.next()).toEqual({ value: 'b', done: false })
+    expect(isvn.next()).toEqual({ value: 'aa', done: false })
+    expect(isvn.next()).toEqual({ value: 'ab', done: false })
+    expect(isvn.next()).toEqual({ value: 'ba', done: false })
+    expect(isvn.next()).toEqual({ value: 'bb', done: false })
+    //...
+  })
 })

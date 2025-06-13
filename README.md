@@ -1,11 +1,11 @@
 # indexed-string-variation
 
 [![npm version](https://badge.fury.io/js/indexed-string-variation.svg)](http://badge.fury.io/js/indexed-string-variation)
-[![Build Status](https://travis-ci.org/lmammino/indexed-string-variation.svg?branch=master)](https://travis-ci.org/lmammino/indexed-string-variation)
-[![codecov.io](https://codecov.io/gh/lmammino/indexed-string-variation/coverage.svg?branch=master)](https://codecov.io/gh/lmammino/indexed-string-variation)
+[![CI](https://github.com/lmammino/indexed-string-variation/actions/workflows/ci.yml/badge.svg)](https://github.com/lmammino/indexed-string-variation/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/lmammino/indexed-string-variation/graph/badge.svg?token=4zplgm5bBj)](https://codecov.io/gh/lmammino/indexed-string-variation)
 
-Experimental JavaScript module to generate all possible variations of strings
-over an alphabet using an n-ary virtual tree.
+JavaScript module to generate all possible variations of strings over an
+alphabet using an n-ary virtual tree.
 
 ## Requirements
 
