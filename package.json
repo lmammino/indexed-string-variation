@@ -16,7 +16,7 @@
     "lint:fix": "biome check --write --organize-imports-enabled=true .",
     "test:lint": "biome check --organize-imports-enabled=true .",
     "test:typecheck": "tsc --noEmit",
-    "test:unit": "vitest run --coverage",
+    "test:unit": "vitest run",
     "test": "npm run test:lint && npm run test:typecheck && npm run test:unit"
   },
   "author": {
