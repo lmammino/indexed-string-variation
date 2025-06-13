@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { indexedStringVariation, type GenOptions } from './index.js'
+import { type GenOptions, indexedStringVariation } from './index.js'
 
 const cases: [string, GenOptions, string[]][] = [
   [
