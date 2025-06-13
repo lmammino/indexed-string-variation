@@ -7,7 +7,7 @@ export function generator(alphabet?: string) {
     return Array.from(new Set(alphabet.split(''))).join('')
   }
 
-  if (alphabet && typeof alphabet !== 'string') {
+  if (typeof alphabet !== 'undefined' && typeof alphabet !== 'string') {
     throw new TypeError('alphabet must be a string')
   }
 

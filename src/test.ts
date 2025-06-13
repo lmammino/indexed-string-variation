@@ -108,4 +108,26 @@ describe('indexed-string-variation', () => {
     const g = generator()
     expect(g.alphabet).toBe(defaultAlphabet)
   })
+
+  it('throws TypeError for invalid integer indices', () => {
+    const isvn = generator('abc')
+    // Not an integer
+    expect(() => isvn(1.5)).toThrow(TypeError)
+    expect(() => isvn(Number.NaN)).toThrow(TypeError)
+    expect(() => isvn(Number.POSITIVE_INFINITY)).toThrow(TypeError)
+    // Negative number
+    expect(() => isvn(-1)).toThrow(TypeError)
+    // Negative BigInt
+    expect(() => isvn(BigInt(-1))).toThrow(TypeError)
+    // Not a number or bigint
+    expect(() => isvn('foo' as unknown as number)).toThrow(TypeError)
+  })
+
+  it('throws TypeError if an invalid alphabet is passed', () => {
+    expect(() => generator(123 as unknown as string)).toThrow(TypeError)
+    expect(() => generator({} as unknown as string)).toThrow(TypeError)
+    expect(() => generator([] as unknown as string)).toThrow(TypeError)
+    expect(() => generator(null as unknown as string)).toThrow(TypeError)
+    expect(() => generator(undefined)).not.toThrow() // undefined is allowed (will use the default alphabet)
+  })
 })
