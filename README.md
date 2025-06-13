@@ -1,8 +1,6 @@
 # indexed-string-variation
 
 [![npm version](https://badge.fury.io/js/indexed-string-variation.svg)](http://badge.fury.io/js/indexed-string-variation)
-[![Build Status](https://travis-ci.org/lmammino/indexed-string-variation.svg?branch=master)](https://travis-ci.org/lmammino/indexed-string-variation)
-[![codecov.io](https://codecov.io/gh/lmammino/indexed-string-variation/coverage.svg?branch=master)](https://codecov.io/gh/lmammino/indexed-string-variation)
 
 
 Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree.
@@ -24,11 +22,14 @@ other software that might require distributed generation of all possible
 strings on a given alphabet.
 
 ```javascript
-const generator = require('indexed-string-variation').generator;
+import { generator } from 'indexed-string-variation';
+// Alternatively, you can use the default import:
+// import generator from 'indexed-string-variation';
+
 const variations = generator('abc1');
 
-for (let i=0; i < 23; i++) {
-    console.log(i, variations(i)); // generates the i-th string in the alphabet 'abc1'
+for (let i = 0; i < 23; i++) {
+  console.log(i, variations(i)); // generates the i-th string in the alphabet 'abc1'
 }
 ```
 
@@ -64,23 +65,39 @@ Will print:
 ## API
 
 The module `indexed-string-variation` exposes the following components:
- 
- * `generator` (also aliased as `default` for ES2015 modules): the 
-  main generator function
- * `defaultAlphabet`: a constant string that contains the sequence of 
-  characters in the defaultAlphabet
 
-As you can see in the [usage example](#usage), the `generator` function takes as input the 
-alphabet string (which is optional and it will default to `defaultAlphabet` if 
-not provided) and returns a new function called `variations` which can be
-used to retrieve the indexed variation on the given alphabet. `variations` takes
-a non-negative integer as input which represents the index of the variations
-that we want to generate:
+* `generator`: The main generator function. It is exported as both a named export and the default export.
+  So you can import it as `import { generator } from 'indexed-string-variation';` or `import generator from 'indexed-string-variation';`.
+* `defaultAlphabet`: A constant string that contains the sequence of characters in the default alphabet (`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`).
+
+As you can see in the [usage example](#usage), the `generator` function takes an optional alphabet string as input (it will default to `defaultAlphabet` if not provided). It returns a new function, let's call it `generateVariation`, which can be used to retrieve the indexed variation on the given alphabet.
+
+The `generateVariation` function takes a non-negative integer or a `BigInt` as input, representing the index of the variation to generate:
 
 ```javascript
-const variations = generator('XYZ');
-console.log(variations(7123456789)); // "XYYZYZZZYYYZYZYXYYYYX"
+import { generator } from 'indexed-string-variation';
+
+const generateVariation = generator('XYZ');
+console.log(generateVariation(123)); // Example output for a small index
+// For very large indices, see the section "Working with Large Indices (Native BigInt)"
 ```
+
+## Working with Large Indices (Native BigInt)
+
+JavaScript integers have limitations for very large numbers (typically numbers greater than 2<sup>53</sup> - 1, or `Number.MAX_SAFE_INTEGER`). For indices exceeding this limit, this library seamlessly supports native JavaScript `BigInt` values.
+
+To use `BigInt`, simply append `n` to your number or use the `BigInt()` constructor.
+
+```javascript
+import { generator } from 'indexed-string-variation';
+const variations = generator('JKWXYZ');
+
+// For very large numbers, use BigInt
+console.log(variations(123456789012345678901n));
+// Note the 'n' suffix for BigInt literals
+```
+
+This ensures precision when dealing with extremely large variation indices.
 
 
 ## How the algorithm works
@@ -120,36 +137,6 @@ For example, with the alphabet in the image we can generate the following string
 
 
 Important note: The alphabet is always normalized (i.e. duplicates are removed)
-
-
-## Use big-integer to avoid JavaScript big integers approximations
-
-Integers with more than 18 digits are approximated (e.g. `123456789012345680000 === 123456789012345678901`), so at some 
-point the generator will start to generate a lot of duplicated strings and it will start to miss many cases.
-
-To workaround this issue you can use indexes generated with the module [big-integer](https://www.npmjs.com/package/big-integer).
-Internally the indexed-string-variation will take care of performing the correct
-operations using the library.
-
-Let's see an example:
-
-```javascript
-const bigInt = require('big-integer'); // install from https://npmjs.com/package/big-integer
-const generator = require('indexed-string-variation').generator;
-const variations = generator('JKWXYZ');
-
-// generation using regular big numbers (same result)
-console.log(variations(123456789012345678901)); // XJZJYXXXYYJKYZZJKZKYJWJJYW
-console.log(variations(123456789012345680000)); // XJZJYXXXYYJKYZZJKZKYJWJJYW
-
-// generation using big-integer numbers (correct results)
-console.log(variations(bigInt('123456789012345678901'))); // XJZJYXXXYYJKYZZJKZKXZKJZZJ
-console.log(variations(bigInt('123456789012345680000'))); // XJZJYXXXYYJKYZZJKZKXZWJJWK
-```
-
-Anyway, keep in mind that big-integers might have a relevant performance impact, 
-so if you don't plan to use huge integers it's still recommended to use 
-plain JavaScript numbers as indexes.
 
 
 ## Contributing

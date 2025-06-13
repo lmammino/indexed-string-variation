@@ -2,20 +2,15 @@
   "name": "indexed-string-variation",
   "version": "1.0.3",
   "description": "Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree",
-  "main": "lib/index.js",
-  "jsnext:main": "src/index.js",
+  "type": "module",
+  "main": "dist/index.js",
   "files": [
-    "lib/index.js",
-    "src/index.js",
-    "lib/generate",
-    "src/generate"
+    "dist/",
+    "**/*.d.ts"
   ],
   "scripts": {
-    "build": "node_modules/.bin/babel --presets=es2015 src/ -d lib",
-    "lint": "./node_modules/.bin/eslint src/",
-    "test": "node_modules/.bin/if-node-version '>=6' npm run lint && node_modules/.bin/tap lib/test.js --coverage | node_modules/.bin/tap-spec",
-    "posttest": "node_modules/.bin/tap --coverage-report=lcov && node_modules/.bin/codecov",
-    "prepublish": "npm run build"
+    "build": "tsc",
+    "test": "vitest"
   },
   "author": {
     "name": "Luciano Mammino",
@@ -31,19 +26,13 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=4"
+    "node": ">=22.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-eslint": "^6.1.2",
-    "babel-preset-es2015": "^6.14.0",
-    "codecov": "^1.0.1",
-    "eslint": "^3.4.0",
-    "eslint-config-xo-space": "^0.14.0",
-    "eslint-plugin-babel": "^3.3.0",
-    "if-node-version": "^1.0.0",
-    "tap": "^7.0.0",
-    "tap-spec": "^4.1.1"
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
   },
   "keywords": [
     "variation",
@@ -56,10 +45,5 @@
     "n-ary",
     "tree"
   ],
-  "eslintConfig": {
-    "extends": "xo-space/esnext"
-  },
-  "dependencies": {
-    "big-integer": "^1.6.16"
-  }
+  "dependencies": {}
 }
