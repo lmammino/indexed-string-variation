@@ -60,6 +60,28 @@ console.log(values.next()); // { value: 'b', done: false }
 //...
 ```
 
+## How the algorithm works
+
+The way the generation algorithm work is using an n-ary tree where n is the size
+of the alphabet. For example, if we have an alphabet containing only `a`, `b`
+and `c`, and we want to generate all the strings with a maximum length of 3 the
+algorithm will use the following tree:
+
+![Sample ternary tree over abc alphabet](doc/sample_diagram.png)
+
+The tree is to be considered "virtual", because it's never generated in its
+integrity, so the used space in memory is minimal.
+
+In summary, we can describe the algorithm as follows:
+
+> Given an index **i** over an alphabet of length **n**, and it's corresponding
+> n-ary tree, the string associated to **i** corresponds to the string obtained
+> by concatenating all the characters found in the path that goes from the root
+> node to the **i**-th node.
+>
+> Note that since the library exposes a generator/iterator interface, the value
+> of **i** is managed internally be the iterator.
+
 ## TypeScript
 
 Type definitions are included. You can use this library with full type safety in
