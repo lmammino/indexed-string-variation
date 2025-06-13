@@ -1,28 +1,31 @@
-export const defaultAlphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+export const defaultAlphabet =
+  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
 export function generator(alphabet?: string) {
   // remove duplicates from alphabets
   const cleanAlphabet = (alphabet: string) => {
-    return Array.from(new Set(alphabet.split(''))).join('');
-  };
-
-  if (alphabet && typeof alphabet !== 'string') {
-    throw new TypeError('alphabet must be a string');
+    return Array.from(new Set(alphabet.split(''))).join('')
   }
 
-  alphabet = alphabet ? cleanAlphabet(alphabet) : defaultAlphabet;
+  if (alphabet && typeof alphabet !== 'string') {
+    throw new TypeError('alphabet must be a string')
+  }
+
+  const cleanedAlphabet = alphabet ? cleanAlphabet(alphabet) : defaultAlphabet
 
   // string generation function
   const generate = (index: number | bigint) => {
-    return typeof index === 'bigint' ? generateBigInt(index, alphabet!) : generateInt(index as number, alphabet!);
-  };
+    return typeof index === 'bigint'
+      ? generateBigInt(index, cleanedAlphabet)
+      : generateInt(index as number, cleanedAlphabet)
+  }
 
-  generate.alphabet = alphabet;
+  generate.alphabet = cleanedAlphabet
 
-  return generate;
+  return generate
 }
 
-import generateInt from './generate/generateInt.js';
-import generateBigInt from './generate/generateBigInt.js';
+import generateBigInt from './generate/generateBigInt.js'
+import generateInt from './generate/generateInt.js'
 
-export default generator;
+export default generator

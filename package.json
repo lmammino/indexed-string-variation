@@ -17,9 +17,11 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "vitest run",
-    "lint": "eslint src --ext .ts,.js",
-    "typecheck": "tsc --noEmit"
+    "lint:fix": "biome check --write --organize-imports-enabled=true .",
+    "test:lint": "biome check --organize-imports-enabled=true .",
+    "test:typecheck": "tsc --noEmit",
+    "test:unit": "vitest run",
+    "test": "npm run test:lint && npm run test:typecheck && npm run test:unit"
   },
   "author": {
     "name": "Luciano Mammino",
@@ -38,10 +40,11 @@
     "node": ">=22"
   },
   "devDependencies": {
-    "typescript": "^5.0.0",
-    "vitest": "^1.0.0",
+    "@biomejs/biome": "1.9.4",
     "@types/node": "^22.0.0",
-    "eslint": "^8.0.0"
+    "lefthook": "^1.11.13",
+    "typescript": "^5.0.0",
+    "vitest": "^1.0.0"
   },
   "keywords": [
     "variation",
@@ -53,11 +56,5 @@
     "cracker",
     "n-ary",
     "tree"
-  ],
-  "eslintConfig": {
-    "extends": "xo-space/esnext"
-  },
-  "dependencies": {
-    "big-integer": "^1.6.16"
-  }
+  ]
 }

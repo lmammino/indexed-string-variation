@@ -4,9 +4,8 @@
 [![Build Status](https://travis-ci.org/lmammino/indexed-string-variation.svg?branch=master)](https://travis-ci.org/lmammino/indexed-string-variation)
 [![codecov.io](https://codecov.io/gh/lmammino/indexed-string-variation/coverage.svg?branch=master)](https://codecov.io/gh/lmammino/indexed-string-variation)
 
-
-Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree.
-
+Experimental JavaScript module to generate all possible variations of strings
+over an alphabet using an n-ary virtual tree.
 
 ## Requirements
 
@@ -22,12 +21,13 @@ npm install indexed-string-variation
 
 ## Usage
 
-This library is ESM-only and written in TypeScript. You can import it as follows:
+This library is ESM-only and written in TypeScript. You can import it as
+follows:
 
 ```js
-import { generator } from 'indexed-string-variation';
+import { generator } from "indexed-string-variation";
 
-const variations = generator('abc1');
+const variations = generator("abc1");
 
 for (let i = 0; i < 23; i++) {
   console.log(i, variations(i)); // generates the i-th string in the alphabet 'abc1'
@@ -39,7 +39,8 @@ console.log(variations(12345678901234567890n));
 
 ## TypeScript
 
-Type definitions are included. You can use this library with full type safety in TypeScript projects.
+Type definitions are included. You can use this library with full type safety in
+TypeScript projects.
 
 ## Testing
 
@@ -57,10 +58,10 @@ npm test
 
 ## Migration notes
 
-- The library now uses native JavaScript `BigInt` instead of the `big-integer` dependency.
+- The library now uses native JavaScript `BigInt` instead of the `big-integer`
+  dependency.
 - Only ESM is supported (no CommonJS `require`).
 - Node.js 22 or newer is required.
-
 
 ## License
 
