@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { defaultAlphabet, generator } from './index.js'
+import { indexedStringVariation, type GenOptions } from './index.js'
 
-const cases: [string, string, string[]][] = [
+const cases: [string, GenOptions, string[]][] = [
   [
     'it should produce variations with digits in alphabet',
-    '0123456789',
+    { alphabet: '0123456789', from: 0n, to: 21n },
     [
       '',
       '0',
@@ -32,7 +32,7 @@ const cases: [string, string, string[]][] = [
   ],
   [
     'it should produce variations with alphanumeric alphabet',
-    'abc1',
+    { alphabet: 'abc1', from: 0n, to: 21n },
     [
       '',
       'a',
@@ -60,7 +60,7 @@ const cases: [string, string, string[]][] = [
   ],
   [
     'it should remove duplicates from alphabet',
-    'aabbbbcc1111111',
+    { alphabet: 'aabbbbcc1111111', from: 0n, to: 21n },
     [
       '',
       'a',
@@ -86,48 +86,30 @@ const cases: [string, string, string[]][] = [
       'aaa',
     ],
   ],
+  [
+    'it uses the default alphabet if none is provided',
+    { from: 0n, to: 10n },
+    ['', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'],
+  ],
+  [
+    'it stops at maxLen if provided',
+    { alphabet: 'ab', maxLen: 2 },
+    ['', 'a', 'b', 'aa', 'ab', 'ba', 'bb'],
+  ],
+  [
+    'it stops at maxIterations if provided',
+    { alphabet: 'ab', maxIterations: 5 },
+    ['', 'a', 'b', 'aa', 'ab'],
+  ],
 ]
 
 describe('indexed-string-variation', () => {
   it.each(cases)(
     '%s',
-    (_title: string, alphabet: string, expected: string[]) => {
-      const isvn = generator(alphabet)
-      const generatedInt: string[] = []
-      const generatedBigInt: string[] = []
-      for (let i = 0; i < expected.length; i++) {
-        generatedInt.push(isvn(i))
-        generatedBigInt.push(isvn(BigInt(i)))
-      }
-      expect(generatedInt).toEqual(expected)
-      expect(generatedBigInt).toEqual(expected)
+    (_title: string, options: GenOptions, expected: string[]) => {
+      const isvn = indexedStringVariation(options)
+      const generatedStrings = [...isvn]
+      expect(generatedStrings).toEqual(expected)
     },
   )
-
-  it('it must use the default alphabet if no alphabet is given', () => {
-    const g = generator()
-    expect(g.alphabet).toBe(defaultAlphabet)
-  })
-
-  it('throws TypeError for invalid integer indices', () => {
-    const isvn = generator('abc')
-    // Not an integer
-    expect(() => isvn(1.5)).toThrow(TypeError)
-    expect(() => isvn(Number.NaN)).toThrow(TypeError)
-    expect(() => isvn(Number.POSITIVE_INFINITY)).toThrow(TypeError)
-    // Negative number
-    expect(() => isvn(-1)).toThrow(TypeError)
-    // Negative BigInt
-    expect(() => isvn(BigInt(-1))).toThrow(TypeError)
-    // Not a number or bigint
-    expect(() => isvn('foo' as unknown as number)).toThrow(TypeError)
-  })
-
-  it('throws TypeError if an invalid alphabet is passed', () => {
-    expect(() => generator(123 as unknown as string)).toThrow(TypeError)
-    expect(() => generator({} as unknown as string)).toThrow(TypeError)
-    expect(() => generator([] as unknown as string)).toThrow(TypeError)
-    expect(() => generator(null as unknown as string)).toThrow(TypeError)
-    expect(() => generator(undefined)).not.toThrow() // undefined is allowed (will use the default alphabet)
-  })
 })

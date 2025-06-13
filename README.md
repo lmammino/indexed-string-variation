@@ -21,20 +21,43 @@ npm install indexed-string-variation
 
 ## Usage
 
-This library is ESM-only and written in TypeScript. You can import it as
+This library is ESM-only and written in TypeScript. You can import and use it as
 follows:
 
 ```js
-import { generator } from "indexed-string-variation";
+import isv from "indexed-string-variation";
 
-const variations = generator("abc1");
-
-for (let i = 0; i < 23; i++) {
-  console.log(i, variations(i)); // generates the i-th string in the alphabet 'abc1'
+// Basic usage: generate all variations for a given alphabet
+for (
+  const str of isv({ alphabet: "abc1", maxIterations: 23 })
+) {
+  console.log(str);
 }
 
-// Using BigInt for large indices
-console.log(variations(12345678901234567890n));
+// Generate variations from a specific index (using BigInt)
+for (
+  const str of isv({
+    alphabet: "abc1",
+    from: 20n,
+    maxIterations: 5,
+  })
+) {
+  console.log(str);
+}
+
+// Generate variations up to a maximum string length
+for (const str of isv({ alphabet: "abc1", maxLen: 2 })) {
+  console.log(str);
+}
+
+// endless variations (don't use a `for ... of` loop because it will never end!)
+const values = isv({
+  alphabet: "abc1",
+});
+
+console.log(values.next()); // { value: 'a', done: false }
+console.log(values.next()); // { value: 'b', done: false }
+//...
 ```
 
 ## TypeScript
