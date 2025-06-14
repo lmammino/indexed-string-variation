@@ -1,6 +1,6 @@
 {
   "name": "indexed-string-variation",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Experimental JavaScript module to generate all possible variations of strings over an alphabet using an n-ary virtual tree",
   "type": "module",
   "main": "dist/index.js",
