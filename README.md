@@ -7,6 +7,42 @@
 JavaScript module to generate all possible variations of strings over an
 alphabet using an n-ary virtual tree.
 
+## Quick start example:
+
+```js
+// generate all strings of max length 3 using the alphabet "ab"
+import isv from "indexed-string-variation";
+
+for (const str of isv({ alphabet: "ab", maxLen: 3 })) {
+  console.log(str);
+}
+```
+
+Output:
+
+```plain
+(empty string)
+a
+b
+aa
+ab
+ba
+bb
+aaa
+aab
+aba
+abb
+baa
+bab
+bba
+bbb
+```
+
+> [!IMPORTANT]\
+> Note that the first result is always an empty string! If you want to start
+> from the first non-empty string, you can use the `from` option to specify the
+> starting index of `1n`.
+
 ## Requirements
 
 - Node.js >= 22
@@ -27,14 +63,14 @@ follows:
 ```js
 import isv from "indexed-string-variation";
 
-// Basic usage: generate all variations for a given alphabet
+// Basic usage: generate the first 23 variations for a given alphabet
 for (
   const str of isv({ alphabet: "abc1", maxIterations: 23 })
 ) {
   console.log(str);
 }
 
-// Generate variations from a specific index (using BigInt)
+// Generate 5 variations starting from a specific index (using BigInt)
 for (
   const str of isv({
     alphabet: "abc1",
@@ -45,20 +81,60 @@ for (
   console.log(str);
 }
 
-// Generate variations up to a maximum string length
+// Generate variations up to a maximum string length of 2 chars
 for (const str of isv({ alphabet: "abc1", maxLen: 2 })) {
   console.log(str);
 }
 
-// endless variations (don't use a `for ... of` loop because it will never end!)
+// endless variations (careful if you use a `for ... of` loop because it will never end unless you have a break condition!)
 const values = isv({
   alphabet: "abc1",
 });
 
+// pull values from the iterator one by one
 console.log(values.next()); // { value: 'a', done: false }
 console.log(values.next()); // { value: 'b', done: false }
-//...
+
+// use iterator helpers and the spread operator to pull multiple values
+// at once into an array
+console.log([...isv({ alphabet: "abc1" }).take(10)]);
+// [
+//   '',   'a',  'b',
+//   'c',  '1',  'aa',
+//   'ab', 'ac', 'a1',
+//   'ba'
+// ]
 ```
+
+> [!TIP]\
+> Find more about iterator helpers the
+> [Iterators MDN page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator).
+
+### Options
+
+The `isv` generator function accepts options that allow you to configure how the
+generation will behave:
+
+- `alphabet`: a `string` containing the characters that will be used to generate
+  the variations. The order of the characters in the string defines their
+  lexicographic order (defaults to
+  `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`).
+- `from`: a `bigint`representing the index from which to start generating the
+  variations (defaults to `0n`).
+- `to?`: a `bigint` representing the index at which to stop generating the
+  variations (optional, defaults to `undefined`, which indicates infinity).
+- maxLen: a `number` representing the maximum length of the generated strings
+  (optional, defaults to `undefined`, which means no limit).
+- maxIterations: a `number` representing the maximum number of iterations to run
+  (optional, defaults to `undefined`, which means no limit).
+
+> [!IMPORTANT]\
+> All the options are optional and by default the generator will be endless (it
+> will keep generating variations), so if you use it in a `for ... of` loop it
+> will never end unless you have an explicit mechanism to break the loop!
+> Alternatively, you can use iterator helpers such as
+> [`Iterator.prototype.take`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator/take)
+> to limit the number of iterations.
 
 ## How the algorithm works
 
