@@ -63,14 +63,14 @@ follows:
 ```js
 import isv from "indexed-string-variation";
 
-// Basic usage: generate all variations for a given alphabet
+// Basic usage: generate the first 23 variations for a given alphabet
 for (
   const str of isv({ alphabet: "abc1", maxIterations: 23 })
 ) {
   console.log(str);
 }
 
-// Generate variations from a specific index (using BigInt)
+// Generate 5 variations starting from a specific index (using BigInt)
 for (
   const str of isv({
     alphabet: "abc1",
@@ -81,20 +81,34 @@ for (
   console.log(str);
 }
 
-// Generate variations up to a maximum string length
+// Generate variations up to a maximum string length of 2 chars
 for (const str of isv({ alphabet: "abc1", maxLen: 2 })) {
   console.log(str);
 }
 
-// endless variations (don't use a `for ... of` loop because it will never end!)
+// endless variations (careful if you use a `for ... of` loop because it will never end unless you have a break condition!)
 const values = isv({
   alphabet: "abc1",
 });
 
+// pull values from the iterator one by one
 console.log(values.next()); // { value: 'a', done: false }
 console.log(values.next()); // { value: 'b', done: false }
-//...
+
+// use iterator helpers and the spread operator to pull multiple values
+// at once into an array
+console.log([...isv({ alphabet: "abc1" }).take(10)]);
+// [
+//   '',   'a',  'b',
+//   'c',  '1',  'aa',
+//   'ab', 'ac', 'a1',
+//   'ba'
+// ]
 ```
+
+> [!TIP]\
+> Find more about iterator helpers the
+> [Iterators MDN page](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Iterator).
 
 ### Options
 
