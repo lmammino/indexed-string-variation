@@ -50,7 +50,7 @@ export type GenOptions = {
   maxIterations?: number
 }
 
-export function* indexedStringVariation(options: GenOptions) {
+export function* indexedStringVariation(options: GenOptions = {}) {
   const alphabet = options.alphabet
     ? cleanAlphabet(options.alphabet)
     : defaultAlphabet

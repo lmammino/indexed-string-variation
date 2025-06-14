@@ -10,7 +10,7 @@
       "require": "./dist/index.js"
     }
   },
-  "files": ["dist/", "src/", "types/"],
+  "files": ["dist/"],
   "scripts": {
     "build": "tsc",
     "lint:fix": "biome check --write --organize-imports-enabled=true .",
